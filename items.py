@@ -25,9 +25,9 @@ class Item(pygame.sprite.Sprite):
                 personaje.llave += 1
             #botiquin
             elif self.item_type == 1:
-                personaje.energia += 100
-                if personaje.energia > 500:
-                    personaje.energia = 500
+                personaje.energia += constantes.VIDA_BOTIQUIN
+                if personaje.energia > constantes.VIDA_PERSONAJE:
+                    personaje.energia = constantes.VIDA_PERSONAJE
 
             self.kill()
 

@@ -95,6 +95,8 @@ class Enemigos():
         self.image = animaciones[self.frame_index]
         self.forma = self.image.get_rect()
         self.forma.center = (x, y)
+        self.golpe = False
+        self.ultimo_golpe = pygame.time.get_ticks()
 
     def actualizar(self, jugador,  posicion_pantalla, tile_paredes):
         clipped_line = ()
@@ -130,12 +132,25 @@ class Enemigos():
 
         self.movimiento(enemigo_dx, enemigo_dy, tile_paredes)
 
+        #timer para volver a golpear
+        cooldown_golpe = constantes.COOLDOWN_GOLPE
+
+        # Atacar al jugador
+        tiempo_actual = pygame.time.get_ticks()
+        if distancia < constantes.RANGO_ATAQUE_ENEMIGOS and tiempo_actual - self.ultimo_golpe >= cooldown_golpe:
+            jugador.energia -= constantes.DANIO_ENEMIGO
+            jugador.golpe = True
+            jugador.ultimo_golpe = tiempo_actual
+            self.ultimo_golpe = tiempo_actual  # Actualizar el tiempo del último golpe
+
         # comprobar si el enemigo esta muerto
         if self.energia <= 0:
             self.energia = 0
             self.vivo = False
 
+        # timer para la animacion
         cooldown_animacion = constantes.COOLDOWN_ANIMACION_ENEMIGOS
+
         if pygame.time.get_ticks() - self.update_time >= cooldown_animacion:
             self.frame_index = (self.frame_index + 1) % len(self.animaciones)
             self.update_time = pygame.time.get_ticks()

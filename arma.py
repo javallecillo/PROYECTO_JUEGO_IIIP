@@ -79,7 +79,7 @@ class Bala(pygame.sprite.Sprite):
         self.delta_x = math.cos(math.radians(self.angulo)) * constantes.VELOCIDAD_BALA
         self.delta_y = -math.sin(math.radians(self.angulo)) * constantes.VELOCIDAD_BALA
 
-    def actualizar(self, lista_enemigos):
+    def actualizar(self, lista_enemigos, tile_paredes):
         danio = 0
         posicion_danio = None
         self.rect.x += self.delta_x
@@ -95,6 +95,12 @@ class Bala(pygame.sprite.Sprite):
                 danio = constantes.DANIO_BALA + random.randint(-5, 5)
                 posicion_danio = enemigo.forma
                 enemigo.energia -= danio
+                self.kill()
+                break
+
+        # verificar colision con paredes
+        for paredes in tile_paredes:
+            if paredes[1].colliderect(self.rect):
                 self.kill()
                 break
 

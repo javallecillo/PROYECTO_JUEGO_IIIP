@@ -31,7 +31,7 @@ def dibujar_texto(texto, fuente, color, x, y):
 
 
 def vida_jugador():
-    for i in range(5):
+    for i in range(3):
         energia_actual = jugador.energia - (i * 100)
         if energia_actual >= 76:
             ventana.blit(corazon_100, (10 + i * 40, 10))
@@ -265,12 +265,10 @@ while run:
     bala = pistola.actualizar(jugador)
     if bala:
         grupo_balas.add(bala)
-
-    #print(len(grupo_balas))
     
     # actualizar balas
     for bala in grupo_balas:
-        danio, posicion_danio = bala.actualizar(lista_enemigos)
+        danio, posicion_danio = bala.actualizar(lista_enemigos, mapa.tile_paredes)
 
         if danio:
             texto_danio = Texto_de_danio(posicion_danio.centerx, posicion_danio.centery, f"-{danio}", fuente, constantes.COLOR_TEXTO_DANIO)
@@ -294,8 +292,11 @@ while run:
 
     # dibujar al enemigo
     for enemigo in lista_enemigos:
-        enemigo.actualizar(jugador, posicion_pantalla, mapa.tile_paredes)
-        enemigo.dibujar(ventana)
+        if enemigo.energia > 0:
+            enemigo.actualizar(jugador, posicion_pantalla, mapa.tile_paredes)
+            enemigo.dibujar(ventana)
+        else:
+            lista_enemigos.remove(enemigo)
 
     # dibujar al arma
     pistola.dibujar(ventana)
@@ -312,7 +313,7 @@ while run:
     # dibujar texto de daño
     grupo_texto_danio.draw(ventana)
 
-    
+
 
     # for para ver los eventos del jquery
     for event in pygame.event.get():

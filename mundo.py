@@ -40,21 +40,22 @@ class Mundo():
                     self.lista_item.append(botiquin)
                     tile_data[0] = lista_tiles[38]
                 #agregar enemigos
+                # # MOLE
+                elif tile == 25:
+                    mole = Enemigos(imagen_x, imagen_y, animaciones_enemigos[2], constantes.VIDA_MOLE)
+                    self.lista_enemigo.append(mole)
+                    tile_data[0] = lista_tiles[38]
+                # GHOUL
+                elif tile == 24:
+                    ghoul = Enemigos(imagen_x, imagen_y, animaciones_enemigos[1], constantes.VIDA_GHOUL)
+                    self.lista_enemigo.append(ghoul)
+                    tile_data[0] = lista_tiles[38]
                 # DEMON
                 elif tile == 36:
                     demon = Enemigos(imagen_x, imagen_y, animaciones_enemigos[0], constantes.VIDA_DEMON)
                     self.lista_enemigo.append(demon)
                     tile_data[0] = lista_tiles[38]
-                # GHOUL
-                elif tile == 24:
-                    ghoul = Enemigos(imagen_x, imagen_y, animaciones_enemigos[1], constantes.VIDA_DEMON)
-                    self.lista_enemigo.append(ghoul)
-                    tile_data[0] = lista_tiles[38]
-                # MOLE
-                elif tile == 25:
-                    mole = Enemigos(imagen_x, imagen_y, animaciones_enemigos[2], constantes.VIDA_DEMON)
-                    self.lista_enemigo.append(mole)
-                    tile_data[0] = lista_tiles[38]
+                
 
 
                 self.tiles_mapa.append(tile_data)
