@@ -2,7 +2,7 @@ import constantes
 from items import Item
 from personaje import Enemigos
 
-paredes = [0,1,2,6,8,9,10,11,13,32]
+paredes = [0,1,2,3,4,5,6,7,8,9,10]
 
 class Mundo():
     def __init__(self):
@@ -27,34 +27,34 @@ class Mundo():
                 #agregar tiles a la lista de paredes
                 if tile in paredes:
                     self.tile_paredes.append(tile_data)
-                elif tile == 18:
+                elif tile == 12:
                     self.tile_salida = tile_data
                 # LLAVE
-                elif tile == 30:
+                elif tile == 15:
                     llave = Item(imagen_x, imagen_y, 0, item_imagenes[0])
                     self.lista_item.append(llave)
-                    tile_data[0] = lista_tiles[38]
+                    tile_data[0] = lista_tiles[11]
                 # BOTIQUIN
-                elif tile == 37:
+                elif tile == 17:
                     botiquin = Item(imagen_x, imagen_y, 1, item_imagenes[1])
                     self.lista_item.append(botiquin)
-                    tile_data[0] = lista_tiles[38]
+                    tile_data[0] = lista_tiles[11]
                 #agregar enemigos
                 # # MOLE
-                elif tile == 25:
+                elif tile == 14:
                     mole = Enemigos(imagen_x, imagen_y, animaciones_enemigos[2], constantes.VIDA_MOLE)
                     self.lista_enemigo.append(mole)
-                    tile_data[0] = lista_tiles[38]
+                    tile_data[0] = lista_tiles[11]
                 # GHOUL
-                elif tile == 24:
+                elif tile == 13:
                     ghoul = Enemigos(imagen_x, imagen_y, animaciones_enemigos[1], constantes.VIDA_GHOUL)
                     self.lista_enemigo.append(ghoul)
-                    tile_data[0] = lista_tiles[38]
+                    tile_data[0] = lista_tiles[11]
                 # DEMON
-                elif tile == 36:
+                elif tile == 16:
                     demon = Enemigos(imagen_x, imagen_y, animaciones_enemigos[0], constantes.VIDA_DEMON)
                     self.lista_enemigo.append(demon)
-                    tile_data[0] = lista_tiles[38]
+                    tile_data[0] = lista_tiles[11]
                 
 
 
