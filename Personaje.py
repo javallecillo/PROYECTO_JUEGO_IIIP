@@ -15,6 +15,9 @@ class Personaje():
         self.forma = self.image.get_rect()
         self.forma.center = (x, y)
         self.en_movimiento = False  # Bandera para controlar el movimiento
+
+    def actualizar_coordenadas(self, tupla):
+        self.forma.center = (tupla[0], tupla[1])
         
 
     def actualizar(self):
@@ -35,8 +38,10 @@ class Personaje():
         interfaz.blit(imagen_flip, self.forma)
         #pygame.draw.rect(interfaz, constantes.COLOR_PERSONAJE, self.forma, width=1)
 
-    def movimiento(self, delta_x, delta_y, tile_paredes):
+    def movimiento(self, delta_x, delta_y, tile_paredes, tile_salida):
         posicion_pantalla = [0, 0]
+        nivel_completo = False
+
 
         if delta_x != 0 or delta_y != 0:
             self.en_movimiento = True
@@ -67,6 +72,11 @@ class Personaje():
                 if delta_y < 0:
                     self.forma.top = pared[1].bottom
 
+        #COLISIONES A LA SALIDA
+        if tile_salida[1].colliderect(self.forma):
+            nivel_completo = True
+            #print("Nivel completado")
+
         # CAMARA
         if self.forma.right > (constantes.ANCHO_VENTANA - constantes.LIMITE_PANTALLA_R):
             posicion_pantalla[0] = (constantes.ANCHO_VENTANA - constantes.LIMITE_PANTALLA_R) - self.forma.right
@@ -82,7 +92,7 @@ class Personaje():
             posicion_pantalla[1] = constantes.LIMITE_PANTALLA_T - self.forma.top
             self.forma.top = constantes.LIMITE_PANTALLA_T
             
-        return posicion_pantalla
+        return posicion_pantalla, nivel_completo
 
 class Enemigos():
     def __init__(self, x, y, animaciones, energia):

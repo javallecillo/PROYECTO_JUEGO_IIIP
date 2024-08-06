@@ -56,6 +56,21 @@ def cargar_datos_csv(ruta_archivo):
             data.append([int(columna) for columna in fila])
     return data
 
+# resetear el nivel
+def resetear_nivel():
+    grupo_texto_danio.empty()
+    grupo_balas.empty()
+    grupo_items.empty()
+    lista_enemigos.clear()
+
+    # crear lista de tile vacias
+    data_mapa = []
+    for filas in range (constantes.FILAS):
+        filas = [2] * constantes.COLUMNAS
+        data_mapa.append(filas)
+
+    return data_mapa
+
 # Inicializamos la libreria
 pygame.init()
 
@@ -183,6 +198,7 @@ mover_derecha = False
 reloj = pygame.time.Clock()
 
 
+
 # Cargar datos del mapa
 data_fondo = cargar_datos_csv("niveles//nivel_1.csv")
 
@@ -250,7 +266,7 @@ while run:
         delta_y = constantes.VELOCIDAD_PERSONAJE
 
     # mover al jugar
-    posicion_pantalla = jugador.movimiento(delta_x, delta_y, mapa.tile_paredes)
+    posicion_pantalla, nivel_completo = jugador.movimiento(delta_x, delta_y, mapa.tile_paredes, mapa.tile_salida)
     #print(posicion_pantalla)
 
     # actualizar el mapa
@@ -312,6 +328,34 @@ while run:
     grupo_texto_danio.draw(ventana)
 
 
+    # verificar si el nivel esta completado
+    if nivel_completo == True and jugador.llave == 1:
+        
+        if nivel <= constantes.MAX_NIVELES:
+            nivel += 1
+            data_mapa = resetear_nivel()
+            jugador.llave = 0
+
+            # Cargar datos de los elementos del mapa
+            with open(f"niveles//nivel_{nivel}.csv", newline='') as csvfile:
+                reader = csv.reader(csvfile, delimiter=';')
+                for x, fila in enumerate(reader):
+                    for y, columna in enumerate(fila):
+                        data_mapa[x][y] = int(columna)
+
+            # Crear un objeto de la clase mundo
+            mapa = Mundo()
+            mapa.procesar_mapa(data_mapa, lista_tiles, item_imagenes, animaciones_enemigos, nivel)
+
+            jugador.actualizar_coordenadas(constantes.COORDENADAS_INICIALES[str(nivel)])
+
+            # añadir items desde los datos del mapa
+            for item in mapa.lista_item:
+                grupo_items.add(item)
+
+            # añadir enemigos desde los datos del mapa
+            for enemigos in mapa.lista_enemigo:
+                lista_enemigos.append(enemigos)
 
     # for para ver los eventos del jquery
     for event in pygame.event.get():
