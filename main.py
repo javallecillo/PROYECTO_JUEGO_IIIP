@@ -120,9 +120,10 @@ for enemigo in tipo_enemigos:
 # Imagenes de tiles del mapa
 lista_tiles = []
 for x in range(constantes.NUM_TILES_N1):
-    tile_imagen = pygame.image.load(f"assets//images//tiles//nivel_1//tileset_{x}.png").convert_alpha()
+    tile_imagen = pygame.image.load(f"assets//images//tiles//tileset_{x}.png").convert_alpha()
     tile_imagen = pygame.transform.scale(tile_imagen, (constantes.ESCALA_TILE, constantes.ESCALA_TILE))
     lista_tiles.append(tile_imagen)
+    
 # Arma
 imagen_pistola = pygame.image.load(f"assets//images//armas//arma.png").convert_alpha()
 imagen_pistola = escalar_imagen(imagen_pistola, constantes.ESCALA_ARMA)
@@ -185,7 +186,7 @@ reloj = pygame.time.Clock()
 
 
 # Cargar datos del mapa
-data_fondo = cargar_datos_csv("niveles//nivel_1//nivel_1.csv")
+data_fondo = cargar_datos_csv("niveles/nivel_1/nivel_1.csv")
 
 # Crear data_mapa combinando piso y paredes
 data_mapa = []
