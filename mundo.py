@@ -2,7 +2,7 @@ import constantes
 from items import Item
 from personaje import Enemigos
 
-paredes = [5,6,7,8,9,10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+paredes = [6,7,8,9,10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 59]
 
 class Mundo():
     def __init__(self):
@@ -12,7 +12,7 @@ class Mundo():
         self.lista_item = []
         self.lista_enemigo = []
 
-    def procesar_mapa(self, data, lista_tiles, item_imagenes, animaciones_enemigos):
+    def procesar_mapa(self, data, lista_tiles, item_imagenes, animaciones_enemigos, nivel):
         self.largo_de_nivel = len(data[0])
 
         for y, row in enumerate(data):
@@ -33,28 +33,66 @@ class Mundo():
                 elif tile == 0:
                     llave = Item(imagen_x, imagen_y, 0, item_imagenes[0])
                     self.lista_item.append(llave)
-                    tile_data[0] = lista_tiles[28]
+
+                    if nivel == 1:
+                        tile_data[0] = lista_tiles[28]
+                    elif nivel == 2:
+                        tile_data[0] = lista_tiles[37]
+                    elif nivel == 3:
+                        tile_data[0] = lista_tiles[58]
+                        
                 # BOTIQUIN
                 elif tile == 1:
                     botiquin = Item(imagen_x, imagen_y, 1, item_imagenes[1])
                     self.lista_item.append(botiquin)
-                    tile_data[0] = lista_tiles[28]
+
+                    if nivel == 1:
+                        tile_data[0] = lista_tiles[28]
+                    elif nivel == 2:
+                        tile_data[0] = lista_tiles[37]
+                    elif nivel == 3:
+                        tile_data[0] = lista_tiles[58]
+                        
                 #agregar enemigos
                 # # MOLE
                 elif tile == 4:
                     mole = Enemigos(imagen_x, imagen_y, animaciones_enemigos[2], constantes.VIDA_MOLE)
                     self.lista_enemigo.append(mole)
-                    tile_data[0] = lista_tiles[28]
+
+                    if nivel == 1:
+                        tile_data[0] = lista_tiles[28]
+                    elif nivel == 2:
+                        tile_data[0] = lista_tiles[37]
+                    elif nivel == 3:
+                        tile_data[0] = lista_tiles[58]
+                        
                 # GHOUL
                 elif tile == 3:
                     ghoul = Enemigos(imagen_x, imagen_y, animaciones_enemigos[1], constantes.VIDA_GHOUL)
                     self.lista_enemigo.append(ghoul)
-                    tile_data[0] = lista_tiles[28]
+
+                    if nivel == 1:
+                        tile_data[0] = lista_tiles[28]
+                    elif nivel == 2:
+                        tile_data[0] = lista_tiles[37]
+                    elif nivel == 3:
+                        tile_data[0] = lista_tiles[58]
+                        
                 # DEMON
                 elif tile == 2:
                     demon = Enemigos(imagen_x, imagen_y, animaciones_enemigos[0], constantes.VIDA_DEMON)
                     self.lista_enemigo.append(demon)
-                    tile_data[0] = lista_tiles[28]
+
+
+                    if nivel == 1:
+                        tile_data[0] = lista_tiles[28]
+                    elif nivel == 2:
+                        tile_data[0] = lista_tiles[37]
+                    elif nivel == 3:
+                        tile_data[0] = lista_tiles[58]
+                        
+
+                
                 
 
 

@@ -62,7 +62,7 @@ class Arma():
     def dibujar(self, interfaz):
         #self.imagen = pygame.transform.rotate(self.imagen, self.angulo)
         interfaz.blit(self.imagen, self.forma)
-        #pygame.draw.rect(interfaz, constantes.COLOR_ARMA, self.forma, width=1)
+        pygame.draw.rect(interfaz, constantes.COLOR_ARMA, self.forma, width=1)
 
 
 class Bala(pygame.sprite.Sprite):

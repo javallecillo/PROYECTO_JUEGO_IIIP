@@ -3,10 +3,8 @@ import pygame
 import csv
 import constantes
 from personaje import Personaje
-from personaje import Enemigos
 from arma import Arma
 from textos import Texto_de_danio
-from items import Item
 from mundo import Mundo
 
 #Funciones
@@ -186,7 +184,7 @@ reloj = pygame.time.Clock()
 
 
 # Cargar datos del mapa
-data_fondo = cargar_datos_csv("niveles/nivel_1/nivel_1.csv")
+data_fondo = cargar_datos_csv("niveles//nivel_1.csv")
 
 # Crear data_mapa combinando piso y paredes
 data_mapa = []
@@ -197,7 +195,7 @@ for filas in range(constantes.FILAS):
     data_mapa.append(filas)
 
 # Cargar datos de los elementos del mapa
-with open("niveles//nivel_1//nivel_1.csv", newline='') as csvfile:
+with open("niveles//nivel_1.csv", newline='') as csvfile:
     reader = csv.reader(csvfile, delimiter=';')
     for x, fila in enumerate(reader):
         for y, columna in enumerate(fila):
@@ -206,7 +204,7 @@ with open("niveles//nivel_1//nivel_1.csv", newline='') as csvfile:
 
 # Crear un objeto de la clase mundo
 mapa = Mundo()
-mapa.procesar_mapa(data_mapa, lista_tiles, item_imagenes, animaciones_enemigos)
+mapa.procesar_mapa(data_mapa, lista_tiles, item_imagenes, animaciones_enemigos, nivel)
 
 # añadir items desde los datos del mapa
 for item in mapa.lista_item:
@@ -308,7 +306,7 @@ while run:
     # dibujar vida del jugador
     vida_jugador()
     dibujar_texto(f"Llave {jugador.llave}/1", fuente_llave, constantes.COLOR_TEXTO, 1200, 10)
-    dibujar_texto(f"Nivel {nivel}", fuente_llave, constantes.COLOR_TEXTO, 680, 10)
+    dibujar_texto(f"Nivel {nivel}", fuente_llave, constantes.COLOR_TEXTO, (constantes.ANCHO_VENTANA/2) , 10)
     
     # dibujar texto de daño
     grupo_texto_danio.draw(ventana)
